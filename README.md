@@ -1,21 +1,20 @@
 # undergrad-thesis-self-check
 
-> 南京大学软件学院 / 智能软件与工程学院 **本科毕业论文** 送审前自检 skill —— 一个为
-> [Claude Code](https://docs.claude.com/en/docs/claude-code) 编写的领域 skill。
+> 南京大学软件学院 / 智能软件与工程学院 **本科毕业论文** 送审前自检 skill 。
 
-把论文 PDF 喂给 Claude，按 28（工程型）/ 26（学术型）条 checklist 逐项审查，输出一份
-带页码定位、按"红线 / 警告 / 通过"分级的 Markdown 修改清单——帮你在送外审之前自己先把
+把论文 PDF 喂给 Agent，按 28（工程型）/ 26（学术型）条 checklist 逐项审查，输出一份
+带页码定位、按"红线 / 警告 / 通过"分级的 Markdown 修改清单——帮你在送审之前自己先把
 能查的问题都查掉。
 
 **适用对象**：
 
-- 主：南大软件学院 / 智能软件与工程学院本科生
+- 主：南京大学软件学院 / 智能软件与工程学院本科生
 - 次：其他高校工科本科生——大部分条目（字数、参考文献、UML、图表编号、引用规范、消融实验等）
-  是通用的；只有"软件系统六要素"等少数条目带 NJU SE 模板特征，可参考性 > 直接使用
+  是通用的
 
 ## 用途
 
-学生写完论文终稿、准备送外审之前，把 PDF 路径喂给 Claude，由 skill 模拟评审专家视角，按
+学生写完论文终稿、准备送审之前，把 PDF 路径喂给 Agent，由 skill 模拟评审专家视角，按
 28（工程型）/ 26（学术型）条 checklist 逐项审查，输出一份带页码定位的 Markdown 修改清单。
 
 设计目标是 **降低"被外审一票否决 / 打回大改"的概率**，而不是替代答辩或学校查重系统。
@@ -25,7 +24,7 @@
 
 适合：
 - 论文已写完终稿，准备打印 / 上传送审系统之前的自查
-- 想知道哪些是"红线"（一票否决项），需要优先修
+- 想知道哪些是"红线"（一票否决项），需要优先修复
 
 不适合：
 - 论文还在初稿阶段——结构没定型时跑 checklist 只会刷出一堆假阳性
@@ -34,27 +33,12 @@
 
 ## 安装
 
-本 skill 需要 [Claude Code](https://docs.claude.com/en/docs/claude-code) 作为运行环境。
-Claude Code 的 skill 默认从 `~/.claude/skills/` 加载，clone 到该目录即可：
+本 skill 需要 Agent 作为运行环境。
 
-```bash
-mkdir -p ~/.claude/skills
-cd ~/.claude/skills
-git clone https://github.com/dongshao/undergrad-thesis-self-check.git
+安装：
+	安装一个 skill： https://github.com/dongshao/undergrad-thesis-self-check.git 
 
-# 安装 PDF 解析依赖
-pip install pdfplumber
-```
-
-验证安装：
-
-```bash
-ls ~/.claude/skills/undergrad-thesis-self-check/SKILL.md
-```
-
-新开一个 Claude Code 会话后，对它说"本科论文自检 /path/to/paper.pdf"即可触发。
-
-> **注**：当前 `SKILL.md` 步骤 1 里的脚本路径是绝对路径 `~/.claude/skills/undergrad-thesis-self-check/scripts/extract_skeleton.py`，如果你装到别的位置，需要在 SKILL.md 中改一下路径。
+新开一个Agent会话后，对它说"本科论文自检 /path/to/paper.pdf"即可触发。
 
 ## 触发词
 
@@ -242,5 +226,4 @@ MIT License. 见 [`LICENSE`](LICENSE) 文件。
 
 - Checklist 条目设计参考了南京大学软件学院 / 智能软件与工程学院本科毕业论文写作要求文档
   以及历年优秀论文实证。
-- skill 框架基于 Anthropic [Claude Code](https://docs.claude.com/en/docs/claude-code) 的
-  skill 机制。
+- skill 框架基于 Anthropic [Claude Code](https://docs.claude.com/en/docs/claude-code) 的 skill 机制。
