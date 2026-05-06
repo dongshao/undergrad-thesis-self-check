@@ -35,8 +35,9 @@
 
 本 skill 需要 Agent 作为运行环境。
 
-安装：
-	安装一个 skill： https://github.com/dongshao/undergrad-thesis-self-check.git 
+安装（在一个 Agent，比如 Claude Code等，输入）：
+
+​	安装一个 skill： https://github.com/dongshao/undergrad-thesis-self-check.git 
 
 新开一个Agent会话后，对它说"本科论文自检 /path/to/paper.pdf"即可触发。
 
