@@ -1,6 +1,6 @@
 ---
 name: undergrad-thesis-self-check
-description: 给南京大学软件工程专业本科毕业论文送审前的自检 skill。学生提供论文 PDF，先从 PDF 抽题目并请学生确认，自动判定"工程型 / 学术型"并请学生确认，再询问"是否团队子模块"（如是追问总项目+本人模块），按对应类别 31-33 条 checklist（含 3-4 条红线 + 5 条参考文献规范）逐项审查，给出带原文页码定位的反馈、红线高亮；并对软件工程图表规范性（用例图 / 架构图 / ER 图 / 类图 / 流程图等）做 UML 规范检查；最后可选追加 AI 文风+错别字检查。报告写到 <论文同目录>/<论文题目>-review.md（题目来自 PDF 内容而非文件名）。**不做**优/良/中/及格/不及格的总分估计。仅在用户明确说"本科论文自检""本科论文自查""本科送审前自查""我的本科论文有什么问题"等触发词且提供 PDF 路径时启用。
+description: 给南京大学软件工程专业本科毕业论文送审前的自检 skill。学生提供论文 PDF，先从 PDF 抽题目并请学生确认，自动判定"工程型 / 学术型"并请学生确认，再询问"是否团队子模块"（如是追问总项目+本人模块），按对应类别 32-34 条 checklist（含 3-4 条红线 + 6 条参考文献规范）逐项审查，给出带原文页码定位的反馈、红线高亮；并对软件工程图表规范性（用例图 / 架构图 / ER 图 / 类图 / 流程图等）做 UML 规范检查；最后可选追加 AI 文风+错别字检查。报告写到 <论文同目录>/<论文题目>-review.md（题目来自 PDF 内容而非文件名）。**不做**优/良/中/及格/不及格的总分估计。仅在用户明确说"本科论文自检""本科论文自查""本科送审前自查""我的本科论文有什么问题"等触发词且提供 PDF 路径时启用。
 ---
 
 # NJU SE 本科论文自检 skill
@@ -58,7 +58,7 @@ description: 给南京大学软件工程专业本科毕业论文送审前的自�
 [2/11]  题目确认（AUTO_MODE 默认通过）
 [3/11]  类别：工程型（依据：第三章"系统架构"+ 第五章"系统测试"）
 [4/11]  团队：solo / team={team_project} - {my_module}
-[5/11]  已加载 engineering-30.md（33 条）+ overrides（仅 team 模式）
+[5/11]  已加载 engineering-30.md（34 条）+ overrides（仅 team 模式）
 [6/11]  红线扫描：命中 X 条
 [7/11]  全量审查完成：✅ A / ⚠️ B / ❌ C
 [8/11]  图表规范性：识别 N 张图 / 命中 M 类图 / 警告 K 条
@@ -285,12 +285,12 @@ print(f"PAPER_TITLE={title_clean}")
 ### 步骤 5：加载对应 reference + 应用 overrides
 
 按确认的类别读取：
-- 工程型：`~/.claude/skills/undergrad-thesis-self-check/references/engineering-30.md`（33 条）
-- 学术型：`~/.claude/skills/undergrad-thesis-self-check/references/academic-30.md`（31 条）
+- 工程型：`~/.claude/skills/undergrad-thesis-self-check/references/engineering-30.md`（34 条）
+- 学术型：`~/.claude/skills/undergrad-thesis-self-check/references/academic-30.md`（32 条）
 
 如团队 = yes：再读 `~/.claude/skills/undergrad-thesis-self-check/references/team-submodule-overrides.md`，对若干条目应用 patch（替换 / 放宽 / 追加 UND-TEAM-DECL）。
 
-**学术型读取的特殊性**：academic-30.md 中前 23 条（RED-1/2/4 + UND-ENG-A-01..10 + UND-ENG-B-01..04,B-10 + UND-ENG-C-02..04 + UND-ENG-F-01..F-05）是"占位指引"，加载时应回到 engineering-30.md 读取对应 ID 条目的完整 yaml；只有 UND-ACA-S-01..05 的 5 条专属条目在 academic-30.md 中完整定义。
+**学术型读取的特殊性**：academic-30.md 中前 27 条（RED-1/2/4 + UND-ENG-A-01..10 + UND-ENG-B-01..04,B-10 + UND-ENG-C-02..04 + UND-ENG-F-01..F-06）是"占位指引"，加载时应回到 engineering-30.md 读取对应 ID 条目的完整 yaml；只有 UND-ACA-S-01..05 的 5 条专属条目在 academic-30.md 中完整定义。
 
 具体实现：审查每条时，按 ID 前缀决定从哪个文件取条目内容：
 - UND-RED-* / UND-ENG-* → engineering-30.md
@@ -552,7 +552,7 @@ echo "STYLE_PATH=$STYLE_PATH"     # 步骤 11 写入文风+错别字详情用这
 
 ---
 
-## 六、参考文献问题（5 条 UND-ENG-F）
+## 六、参考文献问题（6 条 UND-ENG-F）
 
 按 ❌ → ⚠️ → ✅ 顺序排列，警告与不合格在前。
 
@@ -561,6 +561,7 @@ echo "STYLE_PATH=$STYLE_PATH"     # 步骤 11 写入文风+错别字详情用这
 - F-03 英文 / 中文文献门槛 + 防伪
 - F-04 [N] 数字编号 / 中括号位置 / et al. 用法
 - F-05 非同行评议来源处理
+- F-06 arXiv / 预印本条目著录格式（兼容 GB/T 7714 新旧国标）
 
 [逐条展开]
 
@@ -624,7 +625,7 @@ echo "STYLE_PATH=$STYLE_PATH"     # 步骤 11 写入文风+错别字详情用这
 报告路径：/Users/.../<题目>-review.md
 
 类别：工程型（团队论文 — SELABS / 统计与安全管理模块）
-统计：🔴 红线 1 条 / ⚠️ 警告 5 条 / ✅ 通过 27 条 / 共 33 条
+统计：🔴 红线 1 条 / ⚠️ 警告 5 条 / ✅ 通过 28 条 / 共 34 条
 📊 图表规范性：警告 K 条（不计入红线/总警告，仅供修改参考）
 
 🔴 必须先修：
@@ -636,7 +637,7 @@ echo "STYLE_PATH=$STYLE_PATH"     # 步骤 11 写入文风+错别字详情用这
 
 **不输出**：
 - 评议结论估计（本科版不做）
-- 33 条逐条状态（避免刷屏）
+- 34 条逐条状态（避免刷屏）
 - 独立的免责声明段（报告头部一句话即可）
 
 ### 步骤 11（可选）：文风与错别字检查
